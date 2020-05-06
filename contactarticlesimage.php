@@ -1,7 +1,10 @@
 <?php
 defined('_JEXEC') or die;
 
-class PlgContentContactArticlesImage extends JPlugin
+use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\Utilities\ArrayHelper;
+
+class PlgContentContactArticlesImage extends CMSPlugin
 {
 	/**
 	 * Database object
@@ -25,20 +28,21 @@ class PlgContentContactArticlesImage extends JPlugin
 	{
 		$allowed_contexts = array('com_contact.contact');
 
-		if (!in_array($context, $allowed_contexts))
+		if (!in_array($context, $allowed_contexts) || empty($row->id))
 		{
 			return true;
 		}
 
-		// Return if we don't have a valid article id
-		if (!isset($row->id) || !(int) $row->id)
+		$articleids 				= ArrayHelper::getColumn($row->articles, 'id');
+		$articleimages       		= $this->getArticleImage($articleids);
+		foreach ($row->articles as $article)
 		{
-			return true;
-		}
-
-		foreach ($row->articles as $article) {
-			$articleimages       		= $this->getArticleImage($article->id);
-			$images  					= json_decode($articleimages->images);
+			if (!isset($articleimages[$article->id]))
+			{
+				continue; 
+			}
+		  
+			$images  					= json_decode($articleimages[$article->id]->images);
 			$intro_image 				= $images->image_intro;
 			$intro_image_alt 			= $images->image_intro_alt;
 			$article->introimage		= $intro_image; 
@@ -54,18 +58,23 @@ class PlgContentContactArticlesImage extends JPlugin
 	 *
 	 * @return  mixed|null|integer
 	 */
-	protected function getArticleImage($articleid)
+	protected function getArticleImage($articleids)
 	{
+		$articleids = ArrayHelper::toInteger($articleids);
+		$articleids = array_filter($articleids);
 
+		if (empty($articleids))
+		{
+			return array(); 
+		}
+		
 		$query = $this->db->getQuery(true);
+	  
+		$query	->select($this->db->quoteName(['id', 'images']))
+				->from($this->db->quoteName('#__content'))
+				->whereIn($this->db->quoteName('id'), $articleids);
 
-		$query->select('content.images');
-		$query->from($this->db->quoteName('#__content', 'content'));
-		$query->where('content.id = ' . (int) $articleid);
-
-		$this->db->setQuery($query);
-
-		$articleimages = $this->db->loadObject();
+		$articleimages = $this->db->setQuery($query)->loadObjectList('id');
 
 		return $articleimages;
 	}
