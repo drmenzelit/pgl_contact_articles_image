@@ -32,6 +32,6 @@ With this plugin you can show the intro image of the articles. Besides this plug
 	<?php endforeach; ?>
 </div>
 <?php endif; ?>
-´´´
+```
 
-You can then use CSS to style the articles list. An example 
+You can then use CSS to style the articles list. An example can be found [here](https://www.dr-menzel-it.de/blog/plugin-fuer-autor-seite)
