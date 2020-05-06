@@ -13,7 +13,7 @@ With this plugin you can show the intro image of the articles. Besides this plug
 	<?php foreach ($this->item->articles as $article) : ?>
 		<div class="contact-article">
 			<div class="contact-image">
-				<?php if (isset($article->introimage) && (!empty($article->introimage))) : ?>
+				<?php if (!empty($article->introimage)) : ?>
 					<img src="<?php echo $article->introimage; ?>" alt="<?php echo $article->introimagealt; ?>" />
 				<?php endif; ?>
 			</div>
