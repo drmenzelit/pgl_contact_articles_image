@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" type="plugin" group="content" method="upgrade">
+	<name>PLG_CONTENT_CONTACTARTICLESIMAGE</name>
+	<author>Viviana Menzel</author>
+	<creationDate>May 2020</creationDate>
+	<copyright>Copyright (C) 2020 Dr. Menzel IT. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@dr-menzel-it.de</authorEmail>
+	<authorUrl>www.dr-menzel-it.de</authorUrl>
+	<version>1.0.0</version>
+	<description>PLG_CONTENT_CONTACT_ARTICLES_IMAGE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="contactarticlesimage">contactarticlesimage.php</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_content_contactarticlesimage.sys.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_content_contactarticlesimage.sys.ini</language>
+	</languages>
+</extension>
