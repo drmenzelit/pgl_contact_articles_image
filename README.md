@@ -1,10 +1,10 @@
 # Content - Contact intro-image for articles Plugin
 Plugin for including intro images on articles from contact
 
-##Why
+## Why
 On a contact page you can list the articles written by this person. But the articles list includes only title and date, no image.
 
-##Features
+## Features
 With this plugin you can show the intro image of the articles. Besides this plugin you will need an override of com_contact/contact/default_articles.php
 
 ```
